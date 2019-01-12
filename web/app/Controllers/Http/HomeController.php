@@ -3,7 +3,6 @@ namespace App\Controllers\Http;
 
 use Slim\Views\Twig as View;
 use \Slim\Csrf\Guard;
-use App\Views\TwigExtension;
 
 class HomeController {
 

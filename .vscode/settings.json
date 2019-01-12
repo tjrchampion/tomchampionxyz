@@ -1,0 +1,11 @@
+{
+    "[php]": {
+        "editor.tabSize": 4,
+    },
+    "[twig]": {
+        "editor.tabSize": 4  
+    },
+    "[vue]": {
+        "editor.tabSize": 2  
+    }
+}
