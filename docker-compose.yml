@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - './web:/var/www'
+    environment:
+      - DB_HOST=mysqldb #same name as service below
+      - DB_PORT=3306
+
+  #web (nginx)
+  web:
+    build:
+      context: ./
+      dockerfile: web.dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports: 
+      - "8181:80"
+
+  #MYSQL DB
+  mysqldb:
+    image: mysql:5.7
+    volumes:
+      - slimdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=app" #named whatever the project is
+      - "MYSQL_USER=app"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_ROOT_PASSWORD=rootpassword"
+    ports:
+      - "33062:3306"
+
+#select volumes to use
+volumes:
+  slimdata:
