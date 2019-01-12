@@ -25,7 +25,10 @@ class HomeController {
 
     public function update($request, $response)
     {
-        return 'subscription updated';
+        return $response->withJson([
+            'success' => true,
+            'message' => 'CSRF post request successful'
+        ], 200);
     }
     
 }

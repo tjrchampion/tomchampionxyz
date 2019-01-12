@@ -17,7 +17,8 @@ class CsrfExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('csrf_field', array($this, 'csrfField'))
+            new \Twig_SimpleFunction('csrf_field', array($this, 'csrfField')),
+            new \Twig_SimpleFunction('csrf_meta', array($this, 'csrfMeta')),
         ];
     }
 
@@ -27,6 +28,14 @@ class CsrfExtension extends \Twig_Extension
             <input type='hidden' name='{$this->guard->getTokenNameKey()}' value='{$this->guard->getTokenName()}'>
             <input type='hidden' name='{$this->guard->getTokenValueKey()}' value='{$this->guard->getTokenValue()}'>
         ";
+    }
+
+    public function csrfMeta()
+    {
+        return "
+        <meta name='{$this->guard->getTokenNameKey()}' content='{$this->guard->getTokenName()}'>
+        <meta name='{$this->guard->getTokenValueKey()}' content='{$this->guard->getTokenValue()}'>
+    ";   
     }
 
 }
