@@ -41,8 +41,11 @@ $container['view'] = function($container) {
  * App\Controllers\Http;
  * 
  */
-$container['HomeController'] = function($container) {
-    return new App\Controllers\Http\HomeController($container->view, $container->csrf);
+$container['AuthController'] = function($c) {
+    return new App\Controllers\Http\Auth\AuthController($c->view, $c->csrf);
+};
+$container['RegisterController'] = function($c) {
+    return new App\Controllers\Http\Auth\RegisterController($c->view, $c->csrf);
 };
 
 /**

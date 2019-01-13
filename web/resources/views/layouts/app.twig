@@ -2,11 +2,24 @@
     <head>
         <title>Slim/VueJS Dashboard</title>
         {{ csrf_meta() | raw }}
+
+        <style>html{visibility: hidden;opacity:0;}</style>
     </head>
     <body>
+        
+        <header>
+            <div class="container">
+                <span>Global Header</spam>
+                {% if current_path() != '/register' %}
+                    <a href="{{ path_for('register') }}" class="btn btn-outline-success btn-sm">Go to Register</a>
+                {% endif %}
+            </div>
+        </header>
+
         <div id="app">
-            {% block content %} {%endblock%}
+            {% block content %} {% endblock %}
         </div>
+   
         <script type="text/javascript" src="/dist/bundle.js"></script>
     </body>
 </html>

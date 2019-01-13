@@ -1,10 +1,13 @@
 <?php
-namespace App\Controllers\Http;
+
+namespace App\Controllers\Http\Auth;
 
 use Slim\Views\Twig as View;
-use \Slim\Csrf\Guard;
+use Slim\Csrf\Guard;
 
-class HomeController {
+
+class RegisterController {
+
 
     protected $view;
     
@@ -18,17 +21,16 @@ class HomeController {
 
     public function index($request, $response)
     {
-
-        return $this->view->render($response, 'home.twig');
+        return $this->view->render($response, 'register.twig');
     }
 
-    public function update($request, $response)
+    public function store($request, $response)
     {
         return $response->withJson([
             'success' => true,
-            'message' => 'CSRF post request successful'
+            'message' => 'You\'ve securely registered.'
         ], 200);
     }
-    
-}
 
+
+}

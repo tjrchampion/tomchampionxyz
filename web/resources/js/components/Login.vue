@@ -1,12 +1,15 @@
 <template>
 	<div class="container p-3">
 		
-		<h3>Slim/VueJS Boilerplate With CSRF</h3>
-
+			
 		<b-alert show v-if="message">{{message}}</b-alert>
 
-		<form method="post" @submit="onSubmit" novalidate>
-			<b-button @click="onSubmit"  variant="success"><fa icon="spinner" v-show="submitting" pulse :style="{color: '#ffffff'}"></fa> Update</b-button>
+		<h3>Slim/VueJS Boilerplate With CSRF</h3>
+
+		<p>Simple Boilerplate Slim3/Vuejs with CSRF.</p>
+
+		<form @submit.prevent="submit" novalidate>
+			<b-button type="submit" variant="success"><fa icon="spinner" v-show="submitting" pulse :style="{color: '#ffffff'}"></fa> Submit CSRF</b-button>
 		</form>
 
 	</div>
@@ -15,7 +18,7 @@
 <script>
 
 	import axios from 'axios';
-	import Bus from '../Bus';
+	import bus from '../bus';
 
 	export default {
 
@@ -28,14 +31,14 @@
 		},
 
 		mounted() {
-			Bus.$on('csrf', (token) => {
+			bus.$on('csrf', (token) => {
 				this.form = token;
 			});
 		},
 
 		methods: {
 
-			onSubmit() {
+			submit() {
 				this.submitting = !this.submitting;
 				axios.post('/', this.form).then(response => {
 					this.submitting = !this.submitting;

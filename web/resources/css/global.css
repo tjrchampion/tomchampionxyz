@@ -1,0 +1,12 @@
+html {
+    visibility: visible;
+    opacity: 1;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #f8f8f8;
+    padding: 1rem;
+}
