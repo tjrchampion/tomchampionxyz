@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import VeeValidate from 'vee-validate';
+import VueFeather from 'vue-feather';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSpinner} from '@fortawesome/free-solid-svg-icons'
@@ -14,28 +15,28 @@ library.add(faSpinner);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
+Vue.use(VueFeather);
 
-//import css files for bootstrap-vue
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-//import custom styles (Import SCSS/SASS if you want)
-import '../css/global.css';
 
+import '../scss/app.scss'
 
 /**
  * Import vue components
  */
-import App from './components/App.vue';
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
+import App from './App.vue';
+
+
+/**
+ * Import vue pages (components)
+ */
+import Login from './pages/Login.vue';
+import Home from './pages/Home.vue';
+import Register from './pages/Register.vue';
 
 /**
  * Register vue components globally.
  */
 Vue.component('fa', FontAwesomeIcon);
-Vue.component('app', App);
-Vue.component('login', Login);
-Vue.component('register', Register);
 
 
 const csrfToken = {
@@ -44,15 +45,22 @@ const csrfToken = {
 };
 
 
-// let router = new VueRouter({
-// 	routes: [
-// 		{ path: '/', component: Home },
-// 		{ path: '/register', component: Register }
-// 	]
-// });
+let router = new VueRouter({
+	mode: 'history',
+	routes: [
+		{ path: '/', component: Home },
+		{ path: '/register', component: Register }
+	]
+});
 
 const app = new Vue({
 	el: "#app",
+  // pass the template to the root component
+  template: '<App/>',
+  // declare components that the root component can access
+  components: { App },
+  // pass in the router to the Vue instance
+  router,
 	mounted() {
 		bus.$emit('csrf', csrfToken);
 	}

@@ -1,0 +1,46 @@
+html {
+    //unstyled elements flicker fix
+    visibility: visible;
+    opacity: 1;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+}
+
+a {
+    color: theme-color('primary');
+    transition: all 0.3s;
+    &:hover {
+        transition: all 0.3s;
+        color: darken(theme-color('primary'), 10%);
+    }
+}
+
+/** buttons **/
+
+.btn-primary {
+    @include button-variant(
+        theme-color('primary'), //background-colour
+        theme-color('primary'), //border-color
+        darken(theme-color('primary'), 10%), //hover-bg
+        darken(theme-color('primary'), 10%), //hover-border
+        lighten(theme-color('primary'), 10%), //active-background
+        darken(theme-color('primary'),20%) //active border
+    );
+}
+
+.btn-outline-primary {
+    @include button-outline-variant(
+        theme-color('primary'), 
+        darken(theme-color('primary'),4%), 
+        lighten(theme-color('primary'),5%), 
+        theme-color('primary')
+    );
+}
+
+
+/** content body **/
+.content {
+    padding: 4rem 1rem;
+}

@@ -1,11 +1,19 @@
 {
-    "[php]": {
-        "editor.tabSize": 4,
-    },
-    "[twig]": {
-        "editor.tabSize": 4  
-    },
-    "[vue]": {
-        "editor.tabSize": 2  
-    }
+  "[php]": {
+    "editor.tabSize": 4
+  },
+  "[twig]": {
+    "editor.tabSize": 4
+  },
+  "[vue]": {
+    "editor.tabSize": 2
+  },
+  "jira-plugin.workingProject": "",
+  "editor.formatOnSave": true,
+  "vetur.validation.template": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "eslint.workingDirectories": ["./web/resources/js"]
 }

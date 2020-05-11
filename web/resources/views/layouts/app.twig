@@ -1,25 +1,37 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Slim/VueJS Dashboard</title>
-        {{ csrf_meta() | raw }}
+	<head>
+		{% block head %}
+			<title>
+				{% block title %}{% endblock %}
+				- tomchampion.xyz</title>
+			<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+			<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+			<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+			<link rel="manifest" href="/favicon/site.webmanifest">
+			<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+			<meta name="msapplication-TileColor" content="#da532c">
+			<meta name="theme-color" content="#ffffff">
+		{% endblock %}
 
-        <style>html{visibility: hidden;opacity:0;}</style>
-    </head>
-    <body>
-        
-        <header>
-            <div class="container">
-                <span>Global Header</spam>
-                {% if current_path() != '/register' %}
-                    <a href="{{ path_for('register') }}" class="btn btn-outline-success btn-sm">Go to Register</a>
-                {% endif %}
-            </div>
-        </header>
+		{{ csrf_meta() | raw }}
+		<style>
+			{
+				# resolve issue where you see unstyled elements before vuejs loads#
+			}
+			html {
+				visibility: hidden;
+				opacity: 0;
+			}
+		</style>
 
-        <div id="app">
-            {% block content %} {% endblock %}
-        </div>
-   
-        <script type="text/javascript" src="/dist/bundle.js"></script>
-    </body>
-</html>
+	</head>
+	<body>
+
+		<div id="app"> {% block app %}{% endblock %}
+			</div>
+
+			<script type="text/javascript" src="/dist/bundle.js"></script>
+
+		</body>
+	</html>

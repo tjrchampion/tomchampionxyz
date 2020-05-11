@@ -1,11 +1,11 @@
-version: '2'
+version: '3.7'
 
 services:
 
-  app:
+  web:
     build:
-      context: ./
-      dockerfile: app.dockerfile
+      context: ./web
+      dockerfile: Dockerfile.dev
     working_dir: /var/www
     volumes:
       - './web:/var/www'
@@ -14,13 +14,15 @@ services:
       - DB_PORT=3306
 
   #web (nginx)
-  web:
+  nginx:
     build:
-      context: ./
-      dockerfile: web.dockerfile
+      context: ./nginx
+      dockerfile: Dockerfile.dev
     working_dir: /var/www
-    volumes_from:
-      - app
+    volumes:
+    - ./web:/var/www
+    depends_on:
+      - web
     ports: 
       - "8181:80"
 

@@ -3,8 +3,11 @@
 namespace App\Views;
 
 use Slim\Csrf\Guard;
+use Slim\Psr7\Request;
+use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
-class CsrfExtension extends \Twig_Extension
+class CsrfExtension extends AbstractExtension
 {
 
     protected $guard;
@@ -14,11 +17,16 @@ class CsrfExtension extends \Twig_Extension
         $this->guard = $guard;
     }
 
+    public function getName()
+    {
+        return 'guard';
+    }
+
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('csrf_field', array($this, 'csrfField')),
-            new \Twig_SimpleFunction('csrf_meta', array($this, 'csrfMeta')),
+            new TwigFunction('csrf_field', array($this, 'csrfField')),
+            new TwigFunction('csrf_meta', array($this, 'csrfMeta')),
         ];
     }
 
@@ -36,6 +44,11 @@ class CsrfExtension extends \Twig_Extension
             <meta name='{$this->guard->getTokenNameKey()}' content='{$this->guard->getTokenName()}'>
             <meta name='{$this->guard->getTokenValueKey()}' content='{$this->guard->getTokenValue()}'>
         ";   
+    }
+
+    public function getGlobals()
+    {
+        return $this->guard->generateToken();
     }
 
 }

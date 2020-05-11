@@ -1,5 +1,9 @@
 <?php
+
 namespace App\Controllers\Http\Auth;
+
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Slim\Views\Twig as View;
 use Slim\Csrf\Guard;
@@ -16,9 +20,9 @@ class AuthController {
         $this->csrf = $csrf;
     }
 
-    public function index($request, $response)
+    public function index(Request $request, Response $response)
     {
-        return $this->view->render($response, 'login.twig');
+        return $this->view->render($response, 'index.twig');
     }
 
     public function update($request, $response)

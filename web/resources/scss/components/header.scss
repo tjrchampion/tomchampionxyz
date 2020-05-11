@@ -1,0 +1,26 @@
+.navbar {
+    padding: 0;
+    background: white;
+    overflow: auto;
+    .navbar-brand {
+        font-weight: 700;
+        font-size: 1.2rem;
+        padding: 0;
+        img { min-width: 85px; }
+    }
+    .navbar-nav {
+        li .router-link-exact-active {
+            font-weight: 900;
+        }
+    }
+    .externals { padding-right: 2rem; }
+    .toggle-night-mode { 
+        padding: 0; 
+        padding-left: 0.75rem; 
+        margin: 0; 
+        border: 0; 
+        border-left: 1px solid #f1f1f1;
+        outline: none;
+        background: none;
+    }
+}

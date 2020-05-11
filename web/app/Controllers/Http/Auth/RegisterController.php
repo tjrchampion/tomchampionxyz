@@ -6,7 +6,7 @@ use Slim\Views\Twig as View;
 use Slim\Csrf\Guard;
 
 
-class RegisterController {
+class RegisterController extends Controller {
 
 
     protected $view;
