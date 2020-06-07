@@ -21,4 +21,16 @@ interface CartInterface
 	 */
 	public function store(array $data) : array;
 
+	/**
+	 * @param $data
+	 * @return mixed
+	 */
+	public function delete($data) : int;
+
+	/**
+	 * @param $data
+	 * @return array
+	 */
+	public function update($data) : array;
+
 }

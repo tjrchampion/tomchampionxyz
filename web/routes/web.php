@@ -1,7 +1,9 @@
 <?php
 
 use App\Action\CartAction;
+use App\Action\CartDeleteAction;
 use App\Action\CartStoreAction;
+use App\Action\CartUpdateAction;
 
 /**
  * Define out your routes paths and your Controllers
@@ -11,7 +13,8 @@ use App\Action\CartStoreAction;
 $app->group('/api', function ($app) {
 	$app->get('/cart/list/{udid}', CartAction::class)->setName('list');
 	$app->post('/cart', CartStoreAction::class)->setName('storeCartItem');
-	//$app->delete('/cart/:udid/:id')->setName('deleteCartItem');
+	$app->delete('/cart', CartDeleteAction::class)->setName('deleteCartItem');
+	$app->put('/cart', CartUpdateAction::class)->setName('updateCartItem');
 });
 
 

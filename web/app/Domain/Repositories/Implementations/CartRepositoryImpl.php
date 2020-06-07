@@ -34,4 +34,29 @@ class CartRepositoryImpl implements CartInterface
     	return Cart::create($data)->toArray();
     }
 
+
+	public function delete($data) : int
+	{
+		return Cart::where('udid', $data['udid'])->where('id', $data['id'])->delete();
+	}
+
+	/**
+	 * @param $data
+	 * @return array
+	 */
+	public function update($data) : array
+	{
+		$updated =  Cart::where('udid', $data['udid'])
+			->where('id', $data['id'])
+			->update([
+			'title' => $data['title'],
+			'is_complete' => $data['is_complete']
+		]);
+
+		return Cart::where('udid', $data['udid'])
+			->where('id', $data['id'])
+			->first()
+			->toArray();
+
+	}
 }
