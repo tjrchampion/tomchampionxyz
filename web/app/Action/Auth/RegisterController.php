@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Http\Auth;
+namespace App\Action\Auth;
 
 use Slim\Views\Twig as View;
 use Slim\Csrf\Guard;

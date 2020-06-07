@@ -1,20 +1,16 @@
 <?php
 
-namespace  App\Controllers\Http;
+namespace App\Action;
 
 use Slim\Views\Twig;
+use App\Action\Controller;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class HomeController
+class HomeAction
 {
 
-    public function __construct(Twig $view)
-    {
-        $this->view = $view;
-    }
-
-    public function index(Request $request, Response $response)
+    public function __invoke(Request $request, Response $response)
     {
         return $this->view->render($response, 'index.twig');
     }

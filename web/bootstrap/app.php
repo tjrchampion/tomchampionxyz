@@ -1,13 +1,13 @@
 <?php
 
-use Slim\Factory\AppFactory;
-use League\Container\Container;
-
 use \Slim\Csrf\Guard;
-use \Slim\Views\ {
-    Twig,
-    TwigExtension
-};
+use \Slim\Views\Twig;
+
+use Slim\Factory\AppFactory;
+use \Slim\Views\TwigExtension;
+use League\Container\Container;
+use League\Container\ReflectionContainer;
+
 
 session_start();
 
@@ -15,11 +15,21 @@ require '../vendor/autoload.php';
 
 $container = new Container();
 
+$container->delegate(
+    new ReflectionContainer
+);
+
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-/** middleware **/
-$app->add('csrf');
+
+
+// /** middleware **/
+// $app->add('csrf');
+
+$app->addBodyParsingMiddleware();
+$app->addRoutingMiddleware();
+$app->addErrorMiddleware(true, true, true);
 
 
 // $container->add('AuthController', function() use ($container) {

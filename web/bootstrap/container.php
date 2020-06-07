@@ -4,6 +4,7 @@ use App\Providers\CsrfServiceProvider;
 use App\Providers\DumpServiceProvider;
 use App\Providers\ViewServiceProvider;
 use App\Providers\DotenvServiceProvider;
+use App\Providers\RepositoryServiceProvider;
 
 
 $container->addServiceProvider(
@@ -25,4 +26,8 @@ $container->addServiceProvider(
 
 $container->addServiceProvider(
     new DumpServiceProvider()
+);
+
+$container->addServiceProvider(
+    new RepositoryServiceProvider()
 );
