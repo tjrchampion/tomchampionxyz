@@ -6,15 +6,14 @@ use App\Domain\Models\Cart;
 use App\Domain\Repositories\Contracts\CartInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 
+use Unsplash\HttpClient;
 
 class CartRepositoryImpl implements CartInterface
 {
 
 	/**
      * return a list of cart items
-	 *
-	 *
-     *
+	 * 
      * @param [type] $list
      * @return array
      */
@@ -29,15 +28,26 @@ class CartRepositoryImpl implements CartInterface
 	    return Cart::where('udid', $id)->get()->toArray();
     }
 
-    public function store(array $data) : array
+    public function store($body, $files) : array
     {
-    	return Cart::create($data)->toArray();
+		//$this->handleFiles($files);
+    	return Cart::create($body)->toArray();
     }
 
 
 	public function delete($data) : int
 	{
 		return Cart::where('udid', $data['udid'])->where('id', $data['id'])->delete();
+	}
+
+	/**
+	 * handle uploading of files, and database record creation
+	 *
+	 * @return void
+	 */
+	public function handleFiles($files) : void
+	{
+
 	}
 
 	/**
@@ -50,13 +60,12 @@ class CartRepositoryImpl implements CartInterface
 			->where('id', $data['id'])
 			->update([
 			'title' => $data['title'],
-			'is_complete' => $data['is_complete']
+			'complete' => $data['complete']
 		]);
 
 		return Cart::where('udid', $data['udid'])
 			->where('id', $data['id'])
 			->first()
 			->toArray();
-
 	}
 }

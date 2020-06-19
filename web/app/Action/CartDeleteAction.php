@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Action;
-
-
 
 use App\Domain\Services\CartDeleteService;
 use App\Responders\CartDeleteResponder;
@@ -41,9 +41,14 @@ final class CartDeleteAction
 	public function __invoke(RequestInterface $request, ResponseInterface $response)
 	{
 
+		$params = [
+			'id' => $request->getAttribute('id'),
+			'udid' => $request->getAttribute('udid')
+		];
+
 		return $this->responder->send($response,
 			$this->service->handle(
-				$request->getParsedBody()
+				$params
 			)
 		);
 

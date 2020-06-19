@@ -24,7 +24,7 @@ class CartStoreService
 	 * You can handle events here, and manipulate the data as needed.
 	 * @return array
 	 */
-	public function handle(array $data)
+	public function handle(array $body, array $files)
 	{
 
 		$validator = $this->validator->withData($data);
@@ -40,7 +40,7 @@ class CartStoreService
 			];
 		}
 
-		return $this->cart->store($data);
+		return $this->cart->store($body, $files);
 	}
 
 	public function rules()

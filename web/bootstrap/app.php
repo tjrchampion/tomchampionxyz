@@ -7,11 +7,21 @@ use Slim\Factory\AppFactory;
 use \Slim\Views\TwigExtension;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Dotenv\Dotenv;
+use Monolog\Logger;
 
 
 session_start();
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
+
+
+try {
+    $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+    $dotenv->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    //
+}
 
 $container = new Container();
 
@@ -21,7 +31,6 @@ $container->delegate(
 
 AppFactory::setContainer($container);
 $app = AppFactory::create();
-
 
 
 // /** middleware **/

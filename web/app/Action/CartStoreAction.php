@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Action;
-
-
 
 use App\Domain\Services\CartStoreService;
 use App\Responders\CartStoreResponder;
@@ -43,7 +43,7 @@ final class CartStoreAction
 
 		return $this->responder->send($response,
 			$this->service->handle(
-				$request->getParsedBody()
+				$request->getParsedBody(), $request->getUploadedFiles()
 			)
 		);
 

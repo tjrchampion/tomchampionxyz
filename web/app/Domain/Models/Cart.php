@@ -11,6 +11,6 @@ class Cart extends Model
 	protected $fillable = [
 		'udid',
 		'title',
-		'is_complete'
+		'complete'
 	];
 }

@@ -24,9 +24,7 @@ class CartService
 	 */
 	public function handle($udid)
 	{
-
 		return $this->cart->getCartItemById($udid);
-
 	}
 
 }

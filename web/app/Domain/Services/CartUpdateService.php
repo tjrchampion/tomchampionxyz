@@ -50,7 +50,7 @@ class CartUpdateService
 			'id' => ['required'],
 			'udid' => ['required'],
 			'title' => ['required'],
-			'is_complete' => ['required']
+			'complete' => ['required']
 		];
 	}
 

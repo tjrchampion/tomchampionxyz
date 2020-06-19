@@ -21,9 +21,13 @@
         "vlucas/phpdotenv": "^4.1",
         "ext-json": "*",
         "illuminate/database": "^7.14",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "unsplash/unsplash": "^2.5",
+        "monolog/monolog": "^2.1",
+        "phpunit/phpunit": "^9.2"
     },
     "require-dev": {
-        "symfony/var-dumper": "^5.0"
+        "symfony/var-dumper": "^5.0",
+        "phpro/grumphp": "^0.19.0"
     }
 }

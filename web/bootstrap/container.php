@@ -31,3 +31,4 @@ $container->addServiceProvider(
 $container->addServiceProvider(
     new RepositoryServiceProvider()
 );
+

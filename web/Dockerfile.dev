@@ -1,32 +1,32 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt-get update && apt-get install -y \
-        git \
-        curl \
-        zip \
-        unzip \
-        zlib1g-dev \
-        libzip-dev \
-        libfreetype6-dev \
-	    libjpeg62-turbo-dev \
-        libxml2-dev \
-        inkscape \
-        libmagickwand-dev --no-install-recommends \
+    git \
+    curl \
+    zip \
+    unzip \
+    zlib1g-dev \
+    libzip-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libxml2-dev \
+    inkscape \
+    libmagickwand-dev --no-install-recommends \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure soap --enable-soap \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql \
     && docker-php-ext-configure mbstring --enable-mbstring \
     && docker-php-ext-install zip pdo pdo_mysql \
-       dom   \
-       iconv \
-       gd \
-       mbstring \
-       soap \
+    dom   \
+    iconv \
+    gd \
+    mbstring \
+    soap \
     && pecl install xdebug \
-        && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable xdebug \
     && pecl install imagick \
-        && docker-php-ext-enable imagick
+    && docker-php-ext-enable imagick
 
 COPY . /var/www
 # Change website folder rights and upload your website

@@ -49,7 +49,9 @@ class CartDeleteService
 		}
 
 		return [
-			'message' => 'Could not delete cart item'
+			'errors' => [
+				'message' => 'Could not delete cart item'
+			]
 		];
 
 	}

@@ -19,7 +19,10 @@ interface CartInterface
 	 * @param array $data
 	 * @return array
 	 */
-	public function store(array $data) : array;
+	public function store(array $body, array $files) : array;
+
+
+	public function handleFiles(array $files) : void;
 
 	/**
 	 * @param $data
@@ -32,5 +35,7 @@ interface CartInterface
 	 * @return array
 	 */
 	public function update($data) : array;
+
+	
 
 }

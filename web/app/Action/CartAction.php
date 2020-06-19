@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Action;
 
 use App\Domain\Services\CartService;
@@ -39,7 +41,6 @@ final class CartAction
 	 */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
-
     	return $this->responder->send($response,
 		    $this->service->handle(
 			    $request->getAttribute('udid')
