@@ -5,3 +5,4 @@ web/storage/uploads
 web/storage/cache/image
 .idea
 .vscode
+web/.env
