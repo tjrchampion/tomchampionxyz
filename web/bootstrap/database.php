@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Events\Dispatcher;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $capsule = new Capsule();
@@ -13,6 +14,8 @@ $capsule->addConnection([
 	'charset' => getenv('DB_CHARSET'),
 	'collation' => getenv('DB_COLLATION')
 ]);
+
+//$capsule->setEventDispatcher(new Dispatcher());
 
 $capsule->setAsGlobal();
 

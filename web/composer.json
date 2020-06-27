@@ -4,12 +4,15 @@
     "autoload": {
         "psr-4": {
             "App\\": "app"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "autoload-dev": {
-      "psr-4": {
-        "App\\Test\\": "tests/"
-      }
+        "psr-4": {
+            "App\\Test\\": "tests/"
+        }
     },
     "require": {
         "slim/slim": "4.*",
@@ -24,7 +27,12 @@
         "vlucas/valitron": "^1.4",
         "unsplash/unsplash": "^2.5",
         "monolog/monolog": "^2.1",
-        "phpunit/phpunit": "^9.2"
+        "phpunit/phpunit": "^9.2",
+        "fzaninotto/faker": "^1.9",
+        "ramsey/uuid": "^4.0",
+        "illuminate/events": "^7.16",
+        "intervention/image": "^2.5",
+        "intervention/imagecache": "^2.4"
     },
     "require-dev": {
         "symfony/var-dumper": "^5.0",

@@ -5,6 +5,7 @@ use App\Providers\DumpServiceProvider;
 use App\Providers\ViewServiceProvider;
 use App\Providers\DotenvServiceProvider;
 use App\Providers\RepositoryServiceProvider;
+use App\Providers\InterventionImageServiceProvider;
 
 
 $container->addServiceProvider(
@@ -30,5 +31,9 @@ $container->addServiceProvider(
 
 $container->addServiceProvider(
     new RepositoryServiceProvider()
+);
+
+$container->addServiceProvider(
+    new InterventionImageServiceProvider()
 );
 

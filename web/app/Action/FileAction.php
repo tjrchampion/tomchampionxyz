@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Action;
 
-use App\Domain\Services\CartService;
-use App\Responders\CartResponder;
+use App\Domain\Services\FileService;
+use App\Responders\FileResponder;
 
 use League\Container\Container;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class CartAction
+final class FileAction
 {
 
 	/**
-	 * @var CartResponder
+	 * @var FileResponder
 	 */
 	private $responder;
 	/**
-	 * @var CartService
+	 * @var FileService
 	 */
 	private $service;
 
@@ -28,7 +28,7 @@ final class CartAction
 	 * @param CartService $service
 	 * @param CartResponder $responder
 	 */
-	public function __construct(CartService $service, CartResponder $responder)
+	public function __construct(FileService $service, FileResponder $responder)
     {
         $this->service = $service;
         $this->responder = $responder;
@@ -43,7 +43,9 @@ final class CartAction
     {
 		return $this->responder->send($response,
 			$this->service->handle(
-				$request->getAttribute('udid')
+				$request->getAttribute('cart_id'),
+				$request->getAttribute('filename'),
+				$request->getQueryParams('s')
 			)
 		);
     }

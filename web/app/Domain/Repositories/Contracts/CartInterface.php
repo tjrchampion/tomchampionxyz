@@ -21,9 +21,6 @@ interface CartInterface
 	 */
 	public function store(array $body, array $files) : array;
 
-
-	public function handleFiles(array $files) : void;
-
 	/**
 	 * @param $data
 	 * @return mixed

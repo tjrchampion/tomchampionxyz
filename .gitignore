@@ -1,5 +1,7 @@
 web/vendor
 web/node_modules
 node_nodules
+web/storage/uploads
+web/storage/cache/image
 .idea
 .vscode

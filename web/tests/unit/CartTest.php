@@ -2,9 +2,16 @@
 
 namespace Tests;
 
+use Faker\Factory;
+use Slim\Psr7\Request;
+use Faker\Provider\Image;
+
+use Slim\Psr7\Environment;
+use Slim\Psr7\UploadedFile;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use App\Domain\Repositories\Implementations\CartRepositoryImpl;
-use Illuminate\Database\Capsule\Manager as Capsule;
+use App\Domain\Repositories\Implementations\FileRepositoryImpl;
 
 class CartTest extends PHPUnit_TestCase
 {
@@ -26,6 +33,7 @@ class CartTest extends PHPUnit_TestCase
         $capsule->bootEloquent();
 
         $this->cart = new CartRepositoryImpl;
+        $this->file = new FileRepositoryImpl;
         
     }
 
@@ -55,18 +63,26 @@ class CartTest extends PHPUnit_TestCase
         $this->assertNotEmpty($this->cart->get('123'));
     }
 
-    /** @test */
-    public function test_cart_item_can_be_deleted()
+    public function test_file_get_items_returns_array_and_is_not_empty()
     {
-        // $this->cart->delete([
-        //     'id' => '126',
-        //     'udid' => '123'
-        // ]);
+        $this->assertIsArray($this->cart->get('123'));
+        $this->assertNotEmpty($this->cart->get('123'));
+    }
 
-        // $this->assertEquals(1, $this->cart->delete([
-        //     'id' => '126',
-        //     'udid' => '123'
-        // ]));
+    /** @test */
+    public function test_image_can_be_stored_to_location()
+    {
+        $files = [
+            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit1.jpg', 'image/jpeg', filesize($image)),
+            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit2.jpg', 'image/jpeg', filesize($image)),
+        ];
+
+        $stored = $this->file->handle($files);
+    
+        foreach($files as $file) {
+            $exists = file_exists(uploads_path($file->getClientFilename()));
+            $this->assertEquals(true, $exists);            
+        }
     }
 
 }

@@ -2,9 +2,10 @@
 
 namespace App\Domain\Services;
 
+use Valitron\Validator;
 use App\Domain\Models\Cart;
 use App\Domain\Repositories\Contracts\CartInterface;
-use Valitron\Validator;
+use App\Domain\Repositories\Contracts\FileInterface;
 
 class CartStoreService
 {
@@ -14,9 +15,15 @@ class CartStoreService
 	 */
 	private $cart;
 
-	public function __construct(CartInterface $cart, Validator $validator)
+	/**
+	 * @var FileInterface
+	 */
+	protected $file;
+
+	public function __construct(CartInterface $cart, FileInterface $file, Validator $validator)
 	{
 		$this->cart = $cart;
+		$this->file = $file;
 		$this->validator = $validator;
 	}
 
@@ -27,7 +34,7 @@ class CartStoreService
 	public function handle(array $body, array $files)
 	{
 
-		$validator = $this->validator->withData($data);
+		$validator = $this->validator->withData($body);
 
 		$validator->mapFieldsRules(
 			$this->rules()
@@ -39,7 +46,10 @@ class CartStoreService
 				'errors' => $validator->errors()
 			];
 		}
-
+		
+		$this->file->handle($files);
+		$files = $this->file->getStored();
+		
 		return $this->cart->store($body, $files);
 	}
 
@@ -50,5 +60,4 @@ class CartStoreService
 			'udid' => ['required']
 		];
 	}
-
 }

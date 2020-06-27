@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Logger;
+
 error_reporting(0);
 ini_set('display_errors', '0');
 
@@ -17,6 +19,11 @@ $container->add('settings', function () {
         ],
         'views' => [
             'cache' => getenv('VIEW_CACHE_DISABLED') === 'true' ? false : __DIR__ . '/../storage/views'
+        ],
+        'image' => [
+            'cache' => [
+                'path' => base_path('storage/cache/image')
+            ]
         ]
     ];
 });

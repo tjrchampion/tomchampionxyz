@@ -6,7 +6,6 @@ namespace App\Action;
 
 use App\Domain\Services\CartStoreService;
 use App\Responders\CartStoreResponder;
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -40,7 +39,6 @@ final class CartStoreAction
 	 */
 	public function __invoke(RequestInterface $request, ResponseInterface $response)
 	{
-
 		return $this->responder->send($response,
 			$this->service->handle(
 				$request->getParsedBody(), $request->getUploadedFiles()

@@ -1,6 +1,7 @@
 <?php
 
 use App\Action\CartAction;
+use App\Action\FileAction;
 use App\Action\CartStoreAction;
 use App\Action\CartDeleteAction;
 use App\Action\CartUpdateAction;
@@ -20,4 +21,5 @@ $app->group('/api', function ($app) {
 	$app->post('/cart', CartStoreAction::class)->setName('storeCartItem');
 	$app->delete('/cart/{id}/{udid}', CartDeleteAction::class)->setName('deleteCartItem');
 	$app->put('/cart', CartUpdateAction::class)->setName('updateCartItem');
+	$app->get('/usercontent/{cart_id}[/{filename}]', FileAction::class)->setName('getUserContent'); //users device id, and the id of the ima
 });

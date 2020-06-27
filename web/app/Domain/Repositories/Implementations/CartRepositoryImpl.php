@@ -3,10 +3,10 @@
 namespace App\Domain\Repositories\Implementations;
 
 use App\Domain\Models\Cart;
-use App\Domain\Repositories\Contracts\CartInterface;
+use App\Domain\Models\File;
+use Slim\Psr7\UploadedFile;
 use Psr\Http\Message\ResponseInterface as Response;
-
-use Unsplash\HttpClient;
+use App\Domain\Repositories\Contracts\CartInterface;
 
 class CartRepositoryImpl implements CartInterface
 {
@@ -23,34 +23,51 @@ class CartRepositoryImpl implements CartInterface
 	    return Cart::get()->toArray();
     }
 
+	/**
+	 * Domain layer respository for getting a cart item by UDID
+	 *
+	 * @param [type] $id
+	 * @return array
+	 */
     public function getCartItemById($id) : array
     {
-	    return Cart::where('udid', $id)->get()->toArray();
+	    return Cart::with('files')->where('udid', $id)->get()->toArray();
     }
 
+	/**
+	 * Domain layer repo for storing a cart item.
+	 *
+	 * @param [type] $body
+	 * @return array
+	 */
     public function store($body, $files) : array
     {
-		//$this->handleFiles($files);
-    	return Cart::create($body)->toArray();
+
+		$cart =  Cart::create($body);
+
+		if($files) {
+			$cart->files()->createMany($files);
+		}
+
+		return $cart->toArray();
+
+
     }
 
-
+	/**
+	 * Domain layer repo for deleting a sepecific cart item
+	 *
+	 * @param [type] $data
+	 * @return integer
+	 */
 	public function delete($data) : int
 	{
 		return Cart::where('udid', $data['udid'])->where('id', $data['id'])->delete();
 	}
 
 	/**
-	 * handle uploading of files, and database record creation
-	 *
-	 * @return void
-	 */
-	public function handleFiles($files) : void
-	{
-
-	}
-
-	/**
+	 * Domain layer repo for updating a specific cart item
+	 * 
 	 * @param $data
 	 * @return array
 	 */
