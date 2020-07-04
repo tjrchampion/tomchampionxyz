@@ -1,14 +1,17 @@
 <?php
 
+use Dotenv\Dotenv;
+use Monolog\Logger;
+
 use \Slim\Csrf\Guard;
 use \Slim\Views\Twig;
-
+use Slim\Psr7\Response;
+use App\Exceptions\Handler;
 use Slim\Factory\AppFactory;
 use \Slim\Views\TwigExtension;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
-use Dotenv\Dotenv;
-use Monolog\Logger;
+use Slim\Exception\HttpNotFoundException;
 
 
 session_start();
@@ -32,6 +35,9 @@ $container->delegate(
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
-$app->addErrorMiddleware(true, true, true);
+$error = $app->addErrorMiddleware(true, true, true);
+
+$error->setDefaultErrorHandler(Handler::class);

@@ -1,17 +1,31 @@
 <template>
-  <div>
-    <header-bar />
-    <router-view />
-    <footer-bar />
-  </div>
+  <transition
+    name="fade"
+    mode="out-in"
+  >
+    <div
+      class="theme"
+      :class="{night: mode}"
+    >
+      <router-view />
+    </div>
+  </transition>
 </template>
 
 <script>
-	import HeaderBar from './components/HeaderBar.vue';
-	import FooterBar from './components/FooterBar.vue';
+	import bus from './VueBus';
 
 	export default {
 		name: 'App',
-		components: { HeaderBar,FooterBar}
+		data() {
+			return {
+				mode: false 
+			}
+		},
+		mounted() {
+			bus.$on('nightMode', (mode) => {
+				this.mode = JSON.parse(mode);
+      });
+		}
 	}
 </script>

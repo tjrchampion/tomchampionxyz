@@ -1,18 +1,26 @@
 <template>
-  <section class="hero">
+  <section
+    class="hero"
+    :class="{night: mode}"
+  >
     <b-container fluid="lg">
       <b-row>
         <b-col
           col
-          lg="8"
+          lg="6"
           md="10"
           sm="12"
         >
           <h1>I develop software.</h1>
-          <h3>A full-stack application developer, with a passion for UX. I currently work for <a href="https://www.kinderly.co.uk">kinderly.co.uk</a> as Lead Developer, where I maintain and develop their entire stack.</h3>
-          <b-button variant="primary">
-            More about me
-          </b-button>    
+          <h2>I'm a full-stack applications developer, with a passion for UX.</h2>
+          <h5>
+            I currently work for <b-link
+              href="https://www.kinderly.co.uk"
+              target="_blank"
+            >
+              kinderly.co.uk
+            </b-link> as Lead Developer, where I maintain and develop their entire stack.
+          </h5>
         </b-col>
       </b-row>
     </b-container>
@@ -22,7 +30,7 @@
 <script>
 
 	import axios from 'axios';
-	import bus from '../bus';
+	import bus from '../VueBus';
 
 	export default {
     name: 'Home',
@@ -30,14 +38,15 @@
 			return {
 				form: [],
 				submitting: false,
-				message: ''
+				message: '',
+				mode: false 
 			}
 		},
 
 		mounted() {
-			bus.$on('csrf', (token) => {
-				this.form = token;
-			});
+			bus.$on('nightMode', (mode) => {
+				this.mode = JSON.parse(mode);
+      });
 		},
 
 		methods: {

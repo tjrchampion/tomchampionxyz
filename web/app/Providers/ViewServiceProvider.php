@@ -16,7 +16,7 @@ use League\Container\ServiceProvider\AbstractServiceProvider;
 class ViewServiceProvider extends AbstractServiceProvider
 {
     protected $provides = [
-        'view'
+        Twig::class
     ];
 
     protected $routeParser;
@@ -28,35 +28,31 @@ class ViewServiceProvider extends AbstractServiceProvider
 
     public function register()
     {
+
         $container = $this->getContainer();
 
-        $container->add('view', function() use ($container) {
 
-            $view = Twig::create(__DIR__ . '/../../resources/views', [
-                'cache' => false
-            ]);
+        $view = Twig::create(__DIR__ . '/../../resources/views', [
+            'cache' => false
+        ]);
 
-            $view->addRuntimeLoader(
-                new TwigRuntimeLoader(
-                    $this->routeParser,
-                    (new UriFactory)->createFromGlobals($_SERVER)
-                )
-            );
+        $view->addRuntimeLoader(
+            new TwigRuntimeLoader(
+                $this->routeParser,
+                (new UriFactory)->createFromGlobals($_SERVER)
+            )
+        );
 
-            $view->addExtension(
-                new TwigExtension()
-            );
-            $view->addExtension( 
-                new CsrfExtension( 
-                    $container->get('csrf') 
-                ) 
-            );
+        $view->addExtension(
+            new TwigExtension()
+        );
+        $view->addExtension( 
+            new CsrfExtension( 
+                $container->get('csrf') 
+            ) 
+        );
 
-            return $view;
-
-        });
-
-
+        $container->add(Twig::class, $view);
 
     }
 }
