@@ -6,12 +6,12 @@
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 
-
 @import 'vars.scss';
 @import 'global.scss';
 
-//components 
+//components
 @import 'components/header.scss';
 @import 'components/footer.scss';
+@import 'components/content.scss';
 @import 'components/contact.scss';
 @import 'components/hero.scss';

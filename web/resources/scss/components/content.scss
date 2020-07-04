@@ -1,0 +1,13 @@
+.contentwrap {
+	flex: 1;
+	background: var(--bg-color-light);
+	padding: 4rem 1rem;
+	transition: all 0.3s;
+	.content {
+		h2,
+		h5 {
+			line-height: 1.6;
+			color: var(--font-color);
+		}
+	}
+}

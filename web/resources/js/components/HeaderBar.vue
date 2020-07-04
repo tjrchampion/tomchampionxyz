@@ -2,85 +2,125 @@
   <b-navbar
     fixed="top"
     toggleable="sm"
-    type="light"
+    :type="(nightMode) ? 'dark' : 'light'"
     variant="default"
+    class="head"
   >
-    <b-navbar-brand href="#">
+    <b-navbar-brand
+      class="logo"
+      href="#"
+    >
       <img
-        src="/images/logo.svg"
+        src="/images/logo-transparent.svg"
         alt=""
       >
     </b-navbar-brand>
-
-    <b-navbar-toggle target="nav-collapse" />
 
     <b-collapse
       id="nav-collapse"
       is-nav
     >
       <b-navbar-nav>
-        <b-nav-item to="/">
-          Welcome
-        </b-nav-item>
-        <b-nav-item to="/register">
-          Who am i?
-        </b-nav-item>
-        <b-nav-item to="/blog">
-          Blog
-        </b-nav-item>
-        <b-nav-item to="/contact">
-          Contact
-        </b-nav-item>
-      </b-navbar-nav>
-				
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto externals">
         <b-nav-item
-          href="https://www.github.com/tjrchampion"
-          target="_blank"
+          to="/"
+          @click="scroll({behavior: 'smooth'}, '.head')"
         >
-          <feather type="github" />
+          <span>Welcome</span>
         </b-nav-item>
         <b-nav-item
-          href="https://www.twitter.com"
-          target="_blank"
+          to="/#/contact"
+          @click="scroll({behavior: 'smooth'}, '.contact')"
         >
-          <feather type="twitter" />
-        </b-nav-item>				
-        <b-nav-item>
-          <button
-            class="toggle-night-mode"
-            @click="toggleTheme()"
-          >
-            <feather
-              v-if="!nightMode"
-              type="moon"
-            />
-            <feather
-              v-if="nightMode"
-              type="sun"
-            />
-          </button>
-        </b-nav-item>				
+          <span>Contact</span>
+        </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
+
+    <!-- Right aligned nav items -->
+    <b-navbar-nav class="socials">
+      <b-nav-item
+        href="https://www.github.com/tjrchampion"
+        target="_blank"
+      >
+        <feather type="github" />
+      </b-nav-item>
+      <b-nav-item
+        href="https://www.twitter.com/tjrchampion"
+        target="_blank"
+      >
+        <feather type="twitter" />
+      </b-nav-item>
+      <b-nav-item class="theme-toggle-item">
+        <button
+          v-if="nightMode"
+          key="save"
+          class="theme-toggle light"
+          @click="toggleTheme"
+        >
+          <feather type="sun" />
+        </button>
+        <button
+          v-else
+          key="edit"
+          class="theme-toggle dark"
+          @click="toggleTheme"
+        >
+          <feather type="moon" />
+        </button>
+      </b-nav-item>
+      <b-navbar-toggle target="nav-collapse" />
+    </b-navbar-nav>
   </b-navbar>
 </template>
 
 <script>
 
+	import bus from '../../js/bus';
+
 	export default {
 		name: 'Heady',
 		data() {
 			return {
-				nightMode: false
-			}
-		},
+        nightMode: false
+      }
+    },
+    mounted() {
+
+			bus.$on('nightMode', (mode) => {
+        if(mode === 'false') {
+          this.nightMode = false;
+        } 
+        if(mode === 'true') {
+            this.nightMode = true;
+        }
+      });
+
+    },
 		methods: {
 
 			toggleTheme() {
-				this.nightMode = !this.nightMode;
-			}
+        this.nightMode = !this.nightMode;
+        localStorage.setItem('nightMode', this.nightMode);
+        bus.$emit('nightMode', this.nightMode);
+      },
+      scroll(options, el) {
+
+        const element = document.querySelector(el);
+        let y;
+
+        if(el == '.contact') {
+          let yOffset = -85; 
+          y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        }
+
+        if(el == '.head') {
+          y = element.scrollTop = 0;
+        }
+
+        if (element) {
+          window.scrollTo({top: y, behavior: 'smooth'});
+        }
+      }
 
 		}
 	}

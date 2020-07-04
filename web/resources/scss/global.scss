@@ -1,46 +1,86 @@
 html {
-    //unstyled elements flicker fix
-    visibility: visible;
-    opacity: 1;
+	//unstyled elements flicker fix
+	visibility: visible;
+	opacity: 1;
+	height: 100%;
 }
 
 body {
-    font-family: 'Jost', sans-serif;
+	font-family: "Jost", sans-serif;
+	color: var(--font-color);
+	height: 100%;
 }
 
 a {
-    color: theme-color('primary');
-    transition: all 0.3s;
-    &:hover {
-        transition: all 0.3s;
-        color: darken(theme-color('primary'), 10%);
-    }
+	color: var(--font-color);
+	outline: none;
+	transition: all 0.3s;
+	&:hover {
+		transition: all 0.3s;
+		color: var(--font-color);
+	}
 }
 
+label {
+	color: var(--font-color);
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+	background-color: var(--input-color) !important;
+}
+
+.theme {
+	display: flex;
+	flex-direction: column;
+	transition: all 0.3s;
+	background: var(--bg-color-light);
+	height: 100%;
+	min-width: 320px;
+	> div {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
 /** buttons **/
 
 .btn-primary {
-    @include button-variant(
-        theme-color('primary'), //background-colour
-        theme-color('primary'), //border-color
-        darken(theme-color('primary'), 10%), //hover-bg
-        darken(theme-color('primary'), 10%), //hover-border
-        lighten(theme-color('primary'), 10%), //active-background
-        darken(theme-color('primary'),20%) //active border
-    );
+	@include button-variant(
+    theme-color("primary"),
+    theme-color("primary"),
+    darken(theme-color("primary"), 10%),
+    darken(theme-color("primary"), 10%),
+    lighten(theme-color("primary"), 10%),
+    darken(theme-color("primary"), 20%)
+  );
 }
 
 .btn-outline-primary {
-    @include button-outline-variant(
-        theme-color('primary'), 
-        darken(theme-color('primary'),4%), 
-        lighten(theme-color('primary'),5%), 
-        theme-color('primary')
-    );
+	@include button-outline-variant(
+    theme-color("primary"),
+    darken(theme-color("primary"), 4%),
+    lighten(theme-color("primary"), 5%),
+    theme-color("primary")
+  );
 }
 
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
 
-/** content body **/
-.content {
-    padding: 4rem 1rem;
+hr {
+	background: var(--hr-rule);
+}
+
+.navbar-toggler {
+	border: 0;
+	padding: 0;
 }

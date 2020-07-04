@@ -1,12 +1,40 @@
-//bootstrap overrides
 $theme-colors: (
   "primary": #02c39a,
   "danger": #ee6c4d,
   "info": #028090,
-  "text-primary": #000000,
-  "pacey-pink": #db3f77
 );
 
+.theme {
+  --primary-color: #9a97f3;
+  --secondary-color: #818cab;
+  --font-color-pri: #02c39a;
+  --font-color: #444444;
+  --font-color-light: white;
+  --bg-color: #f1f1f1;
+  --font-color-hover: #02c39a;
+  --bg-color-light: white;
+  --bg-color-light-alt: #02c39a;
+  --bg-color-pri: #02c39a;
+  --heading-color: #818cab;
+  --hr-rule: #f1f1f1;
+  --input-color: white;
+}
+
+.night {
+  --primary-color: #9a97f3;
+  --secondary-color: #818cab;
+  --font-color-pri: #02c39a;
+  --font-color: #e1e1ff;
+  --font-color-light: #e1e1ff;
+  --font-color-hover: #f5f5fc;
+  --bg-color: #161625;
+  --bg-color-light: #292944;
+  --bg-color-light-alt: #292944;
+  --bg-color-pri: #038065;
+  --heading-color: #030303;
+  --hr-rule: #818cab;
+  --input-color: #e0dff0;
+}
 
 /* Enable
 ============================================= */

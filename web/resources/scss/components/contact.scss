@@ -1,4 +1,13 @@
 .contact {
-    background: #f1f1f1;
-    padding: 5rem 1rem;
+	transition: all 0.3s;
+	background: var(--bg-color);
+	padding: 5rem 1rem;
+	h4,
+	p {
+		color: var(--font-color);
+	}
+	#formBody {
+		margin-bottom: 1rem;
+		min-height: 150px;
+	}
 }

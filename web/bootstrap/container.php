@@ -3,6 +3,7 @@
 use App\Providers\CsrfServiceProvider;
 use App\Providers\DumpServiceProvider;
 use App\Providers\ViewServiceProvider;
+use App\Providers\ConfigServiceProvider;
 use App\Providers\DotenvServiceProvider;
 use App\Providers\RepositoryServiceProvider;
 use App\Providers\InterventionImageServiceProvider;
@@ -12,6 +13,10 @@ $container->addServiceProvider(
     new DotenvServiceProvider()
 );
 $container->get('dotenv');
+
+$container->addServiceProvider(
+    new ConfigServiceProvider()
+);
 
 $container->addServiceProvider(
     new CsrfServiceProvider(

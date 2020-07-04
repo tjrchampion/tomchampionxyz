@@ -25,8 +25,8 @@ final class FileAction
 
 	/**
 	 * CartAction constructor.
-	 * @param CartService $service
-	 * @param CartResponder $responder
+	 * @param FileService $service
+	 * @param FileResponder $responder
 	 */
 	public function __construct(FileService $service, FileResponder $responder)
     {
