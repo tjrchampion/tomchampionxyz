@@ -11,7 +11,6 @@
 <script>
 
 	import axios from 'axios';
-	import bus from '../bus';
 
   import Hero from '../components/Hero.vue';
   import Contact from '../components/Contact.vue';

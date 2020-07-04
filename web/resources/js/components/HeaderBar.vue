@@ -75,7 +75,7 @@
 
 <script>
 
-	import bus from '../../js/bus';
+	import bus from '../../js/VueBus';
 
 	export default {
 		name: 'Heady',

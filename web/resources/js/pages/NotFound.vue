@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import bus from '../bus';
+	import bus from '../VueBus';
 
   import HeroNotFound from '../components/HeroNotFound.vue';
 

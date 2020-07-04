@@ -30,7 +30,7 @@
 <script>
 
 	import axios from 'axios';
-	import bus from '../bus';
+	import bus from '../VueBus';
 
 	export default {
     name: 'Home',
