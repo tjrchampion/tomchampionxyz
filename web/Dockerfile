@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -y \
     soap
 
 COPY . /var/www
+COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
 # Change website folder rights and upload your website
 RUN chown -R www-data:www-data /var/www
 
