@@ -1,4 +1,4 @@
-#@ latest but for production should be a specifed version nginx:.13.12
+#latest but for production should be a specifed version nginx:.13.12
 FROM nginx:1.18.0
 
 #add our editable config to our container
