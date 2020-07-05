@@ -25,17 +25,29 @@ RUN apt-get update && apt-get install -y \
     mbstring \
     soap
 
-COPY . /var/www
-COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+#COPY ./config/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
-# Change website folder rights and upload your website
-RUN chown -R www-data:www-data /var/www
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/bin
 
 
 WORKDIR /var/www
 
-# install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/bin
+ENV APP_HOME /var/www
+
+
+#change ownership of our applications
+RUN chown -R www-data:www-data $APP_HOME
+
+
+#copy source files and run composer
+COPY ./web/ $APP_HOME
+
+# install all PHP dependencies
+RUN composer install --no-interaction
+
+#change uid and gid of apache to docker user uid/gid
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 # get install script and pass it to execute: 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
