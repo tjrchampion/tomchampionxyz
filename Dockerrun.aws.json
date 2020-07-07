@@ -1,0 +1,26 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "xyz-php",
+            "image": "tjrchampion/xyz-php",
+            "hostname": "web",
+            "essential": true
+        },
+        {
+            "name": "xyz-nginx",
+            "image": "tjrchampion/xyz-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "xyz-php"
+            ]
+        }
+    ]
+}
