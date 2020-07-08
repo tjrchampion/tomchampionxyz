@@ -1,9 +1,13 @@
 language: php
+
 sudo: required
+
 services:
   - docker
 
-script: phpunit
+install: composer install --no-ansi --no-interaction --no-progress --prefer-dist
+
+script: vendor/bin/phpunit
 
 before_install:
   - docker build -t tjrchampion/xyz-php -f web/Dockerfile .
