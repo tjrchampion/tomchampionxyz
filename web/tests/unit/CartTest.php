@@ -33,7 +33,7 @@ class CartTest extends PHPUnit_TestCase
         $capsule->bootEloquent();
 
         $this->cart = new CartRepositoryImpl;
-        $this->file = new FileRepositoryImpl;
+        $this->file = new FileRepositoryImpl(new \Intervention\Image\ImageManager());
         
     }
 
@@ -72,15 +72,17 @@ class CartTest extends PHPUnit_TestCase
     /** @test */
     public function test_image_can_be_stored_to_location()
     {
-        $files = [
-            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit1.jpg', 'image/jpeg', filesize($image)),
-            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit2.jpg', 'image/jpeg', filesize($image)),
+        $files['files'] = [
+            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit1.jpg', 'image/jpeg'),
+            new UploadedFile(Image::image('/tmp', 50, 50), 'testunit2.jpg', 'image/jpeg'),
         ];
 
-        $stored = $this->file->handle($files);
+        $this->file->handle($files);
+
+        $stored = $this->file->getStored();
     
-        foreach($files as $file) {
-            $exists = file_exists(uploads_path($file->getClientFilename()));
+        foreach($files['files'] as $key => $file) {
+            $exists = file_exists(uploads_path($stored[$key]['filename']));
             $this->assertEquals(true, $exists);            
         }
     }
