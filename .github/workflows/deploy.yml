@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
+          cd ./web
           npm install
           npm run build
   test-php:
@@ -20,9 +21,13 @@ jobs:
           php-version: 7.3
           extensions: mbstring, bcmath
       - name: Composer install
-        run: composer install
+        run: |
+          cd ./web
+          composer install
       - name: Run Tests
-        run: ./vendor/bin/phpunit
+        run: |
+          cd ./web
+          ./vendor/bin/phpunit
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
