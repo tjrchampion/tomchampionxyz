@@ -30,7 +30,8 @@ jobs:
           php-version: 7.3
           extensions: mbstring, bcmath
       - name: Copy .env
-        run: cd ./web
+        run: |
+          cd ./web
           php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Composer install
         run: |
