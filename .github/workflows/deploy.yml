@@ -1,0 +1,48 @@
+name: CI-CD # Give your workflow a name
+
+on: push # Run the workflow for each push event (i.e commit)
+
+jobs:
+  build-js:
+    name: Build JS/CSS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          npm install
+          npm run build
+  test-php:
+    name: Test/Lint PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          php-version: 7.3 # Use your PHP version
+          extensions: mbstring, bcmath
+        - name: Composer install
+          run: composer install
+        - name: Run Tests
+          run: ./vendor/bin/phpunit
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build-js, test-php]
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v1
+
+    - name: Generate deployment package
+      run: |
+          apt-get update && apt-get install -y unzip zip
+          zip -r deploy.zip ./*
+      
+    - name: Deploy TCXYZ to EB
+      uses: einaregilsson/beanstalk-deploy@v10
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+        application_name: tomchampionxyz
+        environment_name: tomchampion-xyz
+        version_label: 12345
+        region: us-west-2
+        deployment_package: deploy.zip
