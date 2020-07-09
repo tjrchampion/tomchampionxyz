@@ -21,6 +21,8 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: app
+          MYSQL_USER: "test"
+          MYSQL_PASSWORD: "test"
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -33,6 +35,10 @@ jobs:
         run: |
           cd ./web
           php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: import database
+        run: |
+          cd ./web/database
+          mysql -utest -p test app < app.sql
       - name: Composer install
         run: |
           cd ./web
