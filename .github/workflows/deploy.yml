@@ -35,18 +35,6 @@ jobs:
         run: |
           cd ./web
           php -r "file_exists('.env') || copy('.env.example', '.env');"
-      - name: import database
-        run: |
-          cd ./web/database
-          mysql -utest -p test app < app.sql
-      - name: Composer install
-        run: |
-          cd ./web
-          composer install
-      - name: Run Tests
-        run: |
-          cd ./web
-          ./vendor/bin/phpunit
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
