@@ -55,6 +55,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: tomchampionxyz
           environment_name: Tomchampionxyz-env
-          version_label: 1.0.1
+          version_label: 1.0.2
           region: eu-west-2
           deployment_package: deploy.zip
