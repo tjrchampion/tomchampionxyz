@@ -1,17 +1,44 @@
 {
     "AWSEBDockerrunVersion": 2,
+    "volumes": [
+        {
+            "name": "xyz-php",
+            "host": {
+                "sourcePath": "/var/www"
+            }
+        },
+        {
+            "name": "nginx-proxy-conf",
+            "host": {
+                "sourcePath": "/var/www/nginx/conf.d"
+            }
+        }
+    ],
     "containerDefinitions": [
         {
             "name": "xyz-php",
             "image": "tjrchampion/xyz-php",
             "hostname": "web",
-            "essential": true
+            "essential": true,
+            "memory": 128,
+            "mountPoints": [
+                {
+                    "sourceVolume": "awseb-logs-php-app",
+                    "containerPath": "/var/log/nginx"
+                },
+                {
+                    "sourceVolume": "xyz-php",
+                    "containerPath": "/var/www",
+                    "readOnly": false
+                }
+            ]
         },
         {
             "name": "xyz-nginx",
-            "image": "tjrchampion/xyz-nginx",
+            "image": "nginx",
             "hostname": "nginx",
             "essential": true,
+            "memory": 128,
             "portMappings": [
                 {
                     "hostPort": 80,
@@ -20,6 +47,17 @@
             ],
             "links": [
                 "xyz-php"
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "awseb-logs-nginx-proxy",
+                    "containerPath": "/var/log/nginx"
+                },
+                {
+                    "sourceVolume": "nginx-proxy-conf",
+                    "containerPath": "/etc/nginx/conf.d",
+                    "readOnly": true
+                }
             ]
         }
     ]
